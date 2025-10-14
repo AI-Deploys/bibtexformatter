@@ -1,7 +1,7 @@
 # Common ignored files and folders
 # Ignored files
 .DS_Store
-# poetry.lock
+poetry.lock
 
 *.sublime-workspace
 *.code-workspace
