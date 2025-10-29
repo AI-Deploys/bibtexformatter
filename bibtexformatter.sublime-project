@@ -7,7 +7,7 @@
             "name": "Python3 Virtual Env",
             "target": "terminus_exec",
             "cancel": "terminus_cancel_build",
-            "cmd": [".venv/bin/python3", "-u", "$file"],
+            "shell_cmd": "\".venv/bin/python3\" -u \"$file\"",
             "env": {
                 "PYTHONIOENCODING": "utf-8",
                 "PYTHONPATH": "."

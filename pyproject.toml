@@ -14,8 +14,8 @@ classifiers = ["Topic :: Software Development :: Libraries :: Python Modules"]
 
 [tool.poetry.dependencies]
 python = ">=3.13"
-pyadvtools = "^0.2.4"
-pybibtexer = "^0.2.10"
+pyadvtools = "^0.2.14"
+pybibtexer = "^0.2.12"
 streamlit = "^1.49.1"
 
 [tool.poetry.group.dev.dependencies]
