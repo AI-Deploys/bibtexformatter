@@ -222,10 +222,10 @@ if process_btn:
                 "abbr_index_inproceedings_for_abbr": abbr_index_inproceedings_for_abbr,
             }
 
+            options["full_json_c"] = tmp_path_2 if tmp_path_2 else ""
+            options["full_json_j"] = tmp_path_3 if tmp_path_3 else ""
             with st.spinner("Processing BibTeX data..."):
-                abbr, zotero, save = format_bib_to_abbr_or_zotero_or_save_mode(
-                    tmp_path, options, tmp_path_2 if tmp_path_2 else "", tmp_path_3 if tmp_path_3 else ""
-                )
+                abbr, zotero, save = format_bib_to_abbr_or_zotero_or_save_mode(tmp_path, options)
 
             # Determine result based on selected format
             if purpose == "abbr":
