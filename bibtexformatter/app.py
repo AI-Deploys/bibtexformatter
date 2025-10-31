@@ -63,6 +63,11 @@ st.markdown(
     "<h1 style='text-align: center; margin-bottom: 2rem;'>📚 BibTeX Processing Tool</h1>", unsafe_allow_html=True
 )
 
+# Initialize session state for processed result
+# This prevents the need to refresh the page for subsequent runs
+if "processed_result" not in st.session_state:
+    st.session_state.processed_result = ""
+
 # Create two columns with 8:2 ratio and some spacing
 left_col, right_col = st.columns([7, 3], gap="large")
 
@@ -84,8 +89,8 @@ with left_col:
         label_visibility="collapsed",
     )
 
-    # Output section
-    if "processed_result" in st.session_state and st.session_state.processed_result:
+    # Output section - always show if there's a result in session state
+    if st.session_state.processed_result:
         st.markdown("### 📤 Processed Result")
         st.text_area(
             "Processed BibTeX output:",
@@ -176,8 +181,8 @@ with right_col:
         help="Process the BibTeX data with selected options",
     )
 
-    # Download button (only show when there's a result)
-    if "processed_result" in st.session_state and st.session_state.processed_result:
+    # Download button (only show when there's a result in session state)
+    if st.session_state.processed_result:
         st.download_button(
             label="📥 Download Result",
             data=st.session_state.processed_result,
@@ -187,7 +192,7 @@ with right_col:
             help="Download the processed BibTeX file",
         )
 
-# Processing logic
+# Processing logic - using session state to persist the result
 if process_btn:
     if not bibtex_input.strip():
         st.error("Please paste some BibTeX data first!")
@@ -203,12 +208,12 @@ if process_btn:
             tmp_path_3 = None
 
             if uploaded_file_2:
-                with tempfile.NamedTemporaryFile(delete=False, suffix=".tmp") as tmp2:
+                with tempfile.NamedTemporaryFile(delete=False, suffix=".json", mode="wb") as tmp2:
                     tmp2.write(uploaded_file_2.getvalue())
                     tmp_path_2 = tmp2.name
 
             if uploaded_file_3:
-                with tempfile.NamedTemporaryFile(delete=False, suffix=".tmp") as tmp3:
+                with tempfile.NamedTemporaryFile(delete=False, suffix=".json", mode="wb") as tmp3:
                     tmp3.write(uploaded_file_3.getvalue())
                     tmp_path_3 = tmp3.name
 
@@ -237,7 +242,7 @@ if process_btn:
             else:
                 result = ""
 
-            # Store result in session state
+            # Store result in session state - this persists across reruns
             st.session_state.processed_result = result
             st.success("✅ Processing completed successfully!")
 
@@ -251,9 +256,12 @@ if process_btn:
             except Exception as e:
                 st.warning(f"Note: Temporary files cleanup failed: {e}")
 
+            # Force a rerun to update the UI with the new result
+            st.rerun()
+
         except Exception as e:
-            st.error(f"❌ Processing error: {e}")
-            st.exception(e)
+            st.error(f"❌ Processing failed: {str(e)}")
+            # st.exception(e)
 
 # Instructions in an expander
 with st.expander("ℹ️ How to use", expanded=False):
@@ -269,7 +277,3 @@ with st.expander("ℹ️ How to use", expanded=False):
     6. **Download** the result using the download button
     """
     )
-
-# Initialize session state if not exists
-if "processed_result" not in st.session_state:
-    st.session_state.processed_result = ""
