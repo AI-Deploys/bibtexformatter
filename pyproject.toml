@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "bibtexformatter"
-version = "0.1.7"
+version = "0.1.8"
 description = "bibtexformatter"
 license = "GPL-3.0-or-later"
 authors = ["NextAI <nextartifintell@gmail.com>"]
@@ -14,8 +14,7 @@ classifiers = ["Topic :: Software Development :: Libraries :: Python Modules"]
 
 [tool.poetry.dependencies]
 python = ">=3.12"
-pyadvtools = "^0.2.14"
-pybibtexer = "^0.2.28"
+pybibtexer = "^0.3.7"
 streamlit = "^1.49.1"
 
 [tool.poetry.group.dev.dependencies]
