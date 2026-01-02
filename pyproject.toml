@@ -1,6 +1,6 @@
 [project]
 name = "bibtexformatter"
-version = "0.3.2"
+version = "0.3.3"
 description = "bibtexformatter"
 license = "GPL-3.0-or-later"
 license-files = ["LICENSE"]
@@ -23,7 +23,7 @@ classifiers = [
 ]
 requires-python = ">=3.12"
 dependencies = [
-    "pybibtexer>=0.3.32",
+    "pybibtexer>=0.3.33",
     "streamlit>=1.49.1",
 ]
 
